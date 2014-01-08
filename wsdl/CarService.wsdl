@@ -1,0 +1,79 @@
+<definitions xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+             xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy"
+             xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://example.sigma.se/"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/wsdl/"
+             targetNamespace="http://example.sigma.se/" name="CarService">
+    <types>
+        <xsd:schema>
+            <xsd:import namespace="http://example.sigma.se/" schemaLocation="http://localhost:8090/car?xsd=1"/>
+        </xsd:schema>
+    </types>
+    <message name="addFuel">
+        <part name="parameters" element="tns:addFuel"/>
+    </message>
+    <message name="addFuelResponse">
+        <part name="parameters" element="tns:addFuelResponse"/>
+    </message>
+    <message name="getFuelLevel">
+        <part name="parameters" element="tns:getFuelLevel"/>
+    </message>
+    <message name="getFuelLevelResponse">
+        <part name="parameters" element="tns:getFuelLevelResponse"/>
+    </message>
+    <message name="emptyFuel">
+        <part name="parameters" element="tns:emptyFuel"/>
+    </message>
+    <message name="emptyFuelResponse">
+        <part name="parameters" element="tns:emptyFuelResponse"/>
+    </message>
+    <portType name="Car">
+        <operation name="addFuel">
+            <input wsam:Action="http://example.sigma.se/Car/addFuelRequest" message="tns:addFuel"/>
+            <output wsam:Action="http://example.sigma.se/Car/addFuelResponse" message="tns:addFuelResponse"/>
+        </operation>
+        <operation name="getFuelLevel">
+            <input wsam:Action="http://example.sigma.se/Car/getFuelLevelRequest" message="tns:getFuelLevel"/>
+            <output wsam:Action="http://example.sigma.se/Car/getFuelLevelResponse" message="tns:getFuelLevelResponse"/>
+        </operation>
+        <operation name="emptyFuel">
+            <input wsam:Action="http://example.sigma.se/Car/emptyFuelRequest" message="tns:emptyFuel"/>
+            <output wsam:Action="http://example.sigma.se/Car/emptyFuelResponse" message="tns:emptyFuelResponse"/>
+        </operation>
+    </portType>
+    <binding name="CarPortBinding" type="tns:Car">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <operation name="addFuel">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="getFuelLevel">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="emptyFuel">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="CarService">
+        <port name="CarPort" binding="tns:CarPortBinding">
+            <soap:address location="http://localhost:8090/car"/>
+        </port>
+    </service>
+</definitions>
